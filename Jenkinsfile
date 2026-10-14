@@ -14,6 +14,12 @@ stages {
         }
     }
 
+    stage('Show Project Files') {
+        steps {
+            bat 'dir'
+        }
+    }
+
     stage('Install Dependencies') {
         steps {
             bat '"C:\\Users\\Dev\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
@@ -22,7 +28,7 @@ stages {
 
     stage('Run Tests') {
         steps {
-            bat '"C:\\Users\\Dev\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v'
+            bat '"C:\\Users\\Dev\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v test_bubble_sort.py'
         }
     }
 }
