@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -9,32 +10,39 @@ pipeline {
             }
         }
 
-        stage('Setup Python') {
+        stage('Check Python') {
             steps {
-                bat 'python --version'
-                bat 'python -m pip install --upgrade pip'
-                bat 'pip install -r requirements.txt'
+                bat '"C:\\Users\\Dev\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" --version'
+                bat '"C:\\Users\\Dev\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip --version'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat '"C:\\Users\\Dev\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'pytest -v'
+                bat '"C:\\Users\\Dev\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v
+'
             }
         }
     }
 
     post {
-        always {
-            echo 'Build completed.'
-        }
-
         success {
-            echo 'All tests passed.'
+            echo 'SUCCESS: All tests passed!'
         }
 
         failure {
-            echo 'Tests failed. Check the Jenkins console output.'
+            echo 'FAILURE: Check the console output for errors.'
+        }
+
+        always {
+            echo 'Pipeline execution completed.'
         }
     }
 }
+```
